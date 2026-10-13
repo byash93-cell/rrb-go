@@ -1,0 +1,14 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width,initial-scale=1"><title>RRB Global Alpha</title></head>
+<body style="font-family:sans-serif;background:#111;color:#eee;padding:2em"><p id="m">Opening RRB Global Alpha…</p>
+<script>
+(function(){
+  var base = "/rrb-go";
+  var path = location.pathname.indexOf(base) === 0 ? location.pathname.slice(base.length) : location.pathname;
+  if (path === "" || path === "/index.html" || path === "/404.html") path = "/";
+  fetch(base + "/target.txt?t=" + Date.now(), {cache: "no-store"}).then(function(r){ return r.text(); }).then(function(t){
+    t = t.trim().replace(/\/$/, "");
+    if (!/^https:\/\/[a-z0-9.-]+$/i.test(t)) throw new Error("bad target");
+    location.replace(t + path + location.search + location.hash);
+  }).catch(function(){ document.getElementById("m").textContent = "The dashboard is restarting. Please try again in a minute."; });
+})();
+</script></body></html>
